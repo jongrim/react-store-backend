@@ -4,10 +4,8 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const customerRouter = require('./routes/customer.js');
-const managerRouter = require('./routes/manager');
 const api = require('./api/api');
-const db = require('./models/');
+const db = require('./models');
 
 const app = express();
 
@@ -17,8 +15,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/customer', customerRouter);
-app.use('/manager', managerRouter);
 app.use('/api', api);
 
 // catch 404 and forward to error handler
@@ -39,10 +35,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-if (process.env.NODE_ENV === 'development') {
-  db.sequelize.sync({ force: true });
-} else {
-  db.sequelize.sync();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   db.sequelize.sync({ force: true });
+// } else {
+db.sequelize.sync();
+// }
 
 module.exports = app;
