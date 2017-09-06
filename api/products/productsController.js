@@ -1,7 +1,7 @@
-const mysql = require('mysql2');
+// const mysql = require('mysql2');
 const config = require('../../config/config');
 
-const connection = mysql.createConnection(config);
+// const connection = mysql.createConnection(config);
 
 function viewProducts() {
   return new Promise(function(resolve, reject) {
@@ -25,7 +25,9 @@ function addInventory(item_id, quantity) {
   });
 }
 
-function addNewProduct({ product_name, department_name, price, stock_quantity } = {}) {
+function addNewProduct(
+  { product_name, department_name, price, stock_quantity } = {}
+) {
   return new Promise(function(resolve, reject) {
     connection.execute(
       'INSERT INTO products (product_name, department_name, price, stock_quantity, product_sales) VALUES (?, ?, ?, ?, ?)',
