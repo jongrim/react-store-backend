@@ -1,13 +1,15 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var customerRouter = require('./routes/customer.js');
-var managerRouter = require('./routes/manager');
-var api = require('./api/api');
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const customerRouter = require('./routes/customer.js');
+const managerRouter = require('./routes/manager');
+const api = require('./api/api');
+const db = require('./models/');
 
-var app = express();
+const app = express();
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,5 +38,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+if (process.env.NODE_ENV === 'development') {
+  db.sequelize.sync({ force: true });
+} else {
+  db.sequelize.sync();
+}
 
 module.exports = app;
