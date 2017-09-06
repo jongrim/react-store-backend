@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const products = require('./products/productsRoutes');
-const books = require('./books/book.js');
+const books = require('./book.js');
+const movies = require('./movie.js');
 
-router.use('/products', products);
 router.use('/books', books);
+router.use('/movies', movies);
 
 module.exports = router;
