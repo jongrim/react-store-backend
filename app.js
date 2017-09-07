@@ -35,10 +35,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// if (process.env.NODE_ENV === 'development') {
-//   db.sequelize.sync({ force: true });
-// } else {
 db.sequelize.sync();
-// }
 
 module.exports = app;
