@@ -4,6 +4,7 @@ const router = require('express').Router();
 router.route('/').get(function(req, res) {
   Book.findAll({})
     .then(results => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.json(results);
     })
     .catch(err => {
@@ -13,9 +14,9 @@ router.route('/').get(function(req, res) {
 });
 
 router.route('/:id').get(function(req, res) {
-  console.log(req.params.id);
   Book.findById(req.params.id)
     .then(result => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.json(result);
     })
     .catch(err => {
