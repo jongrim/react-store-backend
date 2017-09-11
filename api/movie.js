@@ -4,6 +4,7 @@ const router = require('express').Router();
 router.route('/').get(function(req, res) {
   Movie.findAll({})
     .then(results => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.json(results);
     })
     .catch(err => {
@@ -16,6 +17,7 @@ router.route('/:id').get(function(req, res) {
   console.log(req.params.id);
   Movie.findById(req.params.id)
     .then(result => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
       res.json(result);
     })
     .catch(err => {
