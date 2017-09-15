@@ -26,17 +26,34 @@ router
       });
   });
 
-router.route('/:id').get(function(req, res) {
-  console.log(req.params.id);
-  Movie.findById(req.params.id)
-    .then(result => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.json(result);
+router
+  .route('/:id')
+  .get(function(req, res) {
+    console.log(req.params.id);
+    Movie.findById(req.params.id)
+      .then(result => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.json({ error: err });
+      });
+  })
+  .delete(function(req, res) {
+    Movie.destroy({
+      where: {
+        id: req.params.id
+      }
     })
-    .catch(err => {
-      console.log(err);
-      res.json({ error: err });
-    });
-});
+      .then(result => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json(result);
+      })
+      .catch(err => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json({ error: err });
+      });
+  });
 
 module.exports = router;

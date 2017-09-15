@@ -54,27 +54,44 @@ router
       });
   });
 
-router.route('/:id').get(function(req, res) {
-  Game.findById(req.params.id)
-    .then(result => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      const gamePromise = getFirstGameFound(result.title);
-      gamePromise
-        .then(game => {
-          if (game.cover.cloudinary_id) {
-            game.imageUrl = getGameLogoImage(game.cover.cloudinary_id);
-          }
-          res.json(game);
-        })
-        .catch(err => {
-          throw err;
-        });
+router
+  .route('/:id')
+  .get(function(req, res) {
+    Game.findById(req.params.id)
+      .then(result => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        const gamePromise = getFirstGameFound(result.title);
+        gamePromise
+          .then(game => {
+            if (game.cover.cloudinary_id) {
+              game.imageUrl = getGameLogoImage(game.cover.cloudinary_id);
+            }
+            res.json(game);
+          })
+          .catch(err => {
+            throw err;
+          });
+      })
+      .catch(err => {
+        console.log(err);
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json({ error: err });
+      });
+  })
+  .delete(function(req, res) {
+    Game.destroy({
+      where: {
+        id: req.params.id
+      }
     })
-    .catch(err => {
-      console.log(err);
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.json({ error: err });
-    });
-});
+      .then(result => {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.json({ error: err });
+      });
+  });
 
 module.exports = router;
