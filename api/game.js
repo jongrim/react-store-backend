@@ -59,13 +59,13 @@ router
   .get(function(req, res) {
     Game.findById(req.params.id)
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         const gamePromise = getFirstGameFound(result.title);
         gamePromise
           .then(game => {
             if (game.cover.cloudinary_id) {
               game.imageUrl = getGameLogoImage(game.cover.cloudinary_id);
             }
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.json(game);
           })
           .catch(err => {
