@@ -6,7 +6,6 @@ router
   .get(function(req, res) {
     Book.findAll({})
       .then(results => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(results);
       })
       .catch(err => {
@@ -18,12 +17,10 @@ router
     const { title, price } = req.body;
     Book.create({ title, price })
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {
         console.log(err);
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json({ error: err });
       });
   });
@@ -33,12 +30,10 @@ router
   .get(function(req, res) {
     Book.findById(req.params.id)
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {
         console.log(err);
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json({ error: err });
       });
   })
@@ -49,11 +44,9 @@ router
       }
     })
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json({ error: err });
       });
   });

@@ -32,7 +32,6 @@ router
   .get(function(req, res) {
     Game.findAll({})
       .then(results => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(results);
       })
       .catch(err => {
@@ -44,12 +43,10 @@ router
     const { title, price } = req.body;
     Game.create({ title, price })
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {
         console.log(err);
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json({ error: err });
       });
   });
@@ -65,7 +62,7 @@ router
             if (game.cover.cloudinary_id) {
               game.imageUrl = getGameLogoImage(game.cover.cloudinary_id);
             }
-            res.setHeader('Access-Control-Allow-Origin', '*');
+
             res.json(game);
           })
           .catch(err => {
@@ -74,7 +71,6 @@ router
       })
       .catch(err => {
         console.log(err);
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json({ error: err });
       });
   })
@@ -85,7 +81,6 @@ router
       }
     })
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {

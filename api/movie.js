@@ -6,7 +6,6 @@ router
   .get(function(req, res) {
     Movie.findAll({})
       .then(results => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(results);
       })
       .catch(err => {
@@ -32,7 +31,6 @@ router
     console.log(req.params.id);
     Movie.findById(req.params.id)
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {
@@ -47,11 +45,9 @@ router
       }
     })
       .then(result => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
       })
       .catch(err => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json({ error: err });
       });
   });

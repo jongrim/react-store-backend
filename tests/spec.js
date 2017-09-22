@@ -19,14 +19,14 @@ describe('Books', function() {
 
   it('should return a single book when given an id', function(done) {
     request(app)
-      .get('/api/books/1')
+      .get('/api/books/3')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
       .end(function(err, resp) {
         if (err) throw err;
         let { id } = resp.body;
-        expect(id).to.equal(1);
+        expect(id).to.equal(3);
         done();
       });
   });

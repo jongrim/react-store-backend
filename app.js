@@ -10,7 +10,13 @@ const db = require('./models');
 const app = express();
 
 const allowCrossDomain = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  let allowedOrigin;
+  if (process.env.NODE_ENV === 'production') {
+    allowedOrigin = 'https://jgrim-react-store.herokuapp.com';
+  } else {
+    allowedOrigin = '*';
+  }
+  res.header('Access-Control-Allow-Origin', allowedOrigin);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header(
     'Access-Control-Allow-Headers',
